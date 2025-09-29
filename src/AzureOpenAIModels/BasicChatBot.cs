@@ -1,11 +1,10 @@
 ﻿using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
-using System.Net;
 
-namespace SK_DEV.SemanticKernelFoundation
+namespace SK_DEV.AzureOpenAIModels
 {
-    internal static class StreamingChatBot
+    internal static class BasicChatBot
     {
         public static async Task InvokeChatBot(string modelId, string endpoint, string apiKey)
         {
@@ -13,7 +12,6 @@ namespace SK_DEV.SemanticKernelFoundation
             azureKernelbuilder.AddAzureOpenAIChatCompletion(modelId, endpoint, apiKey);
 
             Kernel azureKernel = azureKernelbuilder.Build();
-
             var history = new ChatHistory();
 
             //Get reference to the chat completion service
@@ -47,29 +45,23 @@ namespace SK_DEV.SemanticKernelFoundation
                 //Exit if prompt is empty or null
                 if (string.IsNullOrEmpty(prompt)) break;
 
-                string fullMessage = "";
-                OpenAI.Chat.ChatTokenUsage? usage = null;
-
                 //add user prompt to chat history
                 history.AddUserMessage(prompt);
-                await foreach(StreamingChatMessageContent responseChunk in chatCompletionService.GetStreamingChatMessageContentsAsync(history, settings))
-                {
-                    Console.Write(responseChunk.Content);
-                    fullMessage += responseChunk.Content;
-                    usage = ((OpenAI.Chat.StreamingChatCompletionUpdate)responseChunk.InnerContent!).Usage;
-                }
+                var response = await chatCompletionService.GetChatMessageContentAsync(history, settings);
 
                 //add response to chatHistory to maintain context
-                history.AddAssistantMessage(fullMessage);
-                Console.WriteLine($"\nToken Usage: InputTokens={usage?.InputTokenCount}, OutputTokens={usage?.OutputTokenCount}, Total={usage?.TotalTokenCount}");
+                history.Add(response);
+
+                OpenAI.Chat.ChatTokenUsage usage = ((OpenAI.Chat.ChatCompletion)response.InnerContent!).Usage;
+
+                Console.WriteLine($"\nResponse: {response.Content}");
+                Console.WriteLine($"\nToken Usage: InputTokens={usage.InputTokenCount}, OutputTokens={usage.OutputTokenCount}, Total={usage.TotalTokenCount}");
+
 
                 var reducedMessages = await reducer.ReduceAsync(history);
-
-                Console.WriteLine($"\nChat history count . Message count: {history.Count}");
-
                 if (reducedMessages != null)
-                    history = [.. reducedMessages];
-                    Console.WriteLine($"\nChat history was reduced. New message count: {history.Count}");
+                    history = new(reducedMessages);
+                Console.WriteLine($"\nChat history was reduced. New message count: {history.Count}");
             }
         }
     }

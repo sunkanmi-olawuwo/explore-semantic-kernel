@@ -427,3 +427,4 @@ yarn-error.log*
 site/**
 /src/PersonalFinanceManager.Client/PFMv1Client.g.cs
 /src/appsettings.json
+/SK-MultiModal-Console/appsettings.json
