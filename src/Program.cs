@@ -19,23 +19,17 @@ namespace SK_DEV
             var apiKey = config["apikey"];
 
             var openAIModelId = config["OpenAI:modelid"];
-            var openAIEndpoint = config["OpenAI:apikey"];
+            var openAIApiKey = config["OpenAI:apikey"];
 
-            // Ensure required configuration values are not null or empty
-            if (string.IsNullOrWhiteSpace(modelId))
-                throw new InvalidOperationException("Missing required configuration value: modelid");
-            if (string.IsNullOrWhiteSpace(endpoint))
-                throw new InvalidOperationException("Missing required configuration value: endpoint");
-            if (string.IsNullOrWhiteSpace(apiKey))
-                throw new InvalidOperationException("Missing required configuration value: apikey");
-            if (string.IsNullOrWhiteSpace(openAIModelId))
-                throw new InvalidOperationException("Missing required configuration value: OpenAI:modelid");
-            if (string.IsNullOrWhiteSpace(openAIEndpoint))
-                throw new InvalidOperationException("Missing required configuration value: OpenAI:apikey");
+            var gitHubToken = config["GitHub:apikey"];
+            var gitHubEndpoint = config["GitHub:endpoint"];
+            var gitHubOpenAIModel = config["GitHub:modelid"];
 
-            //await BasicChatBot.InvokeChatBot(modelId, endpoint, apiKey);
-            //await StreamingChatBot.InvokeChatBot(modelId, endpoint, apiKey);
-            await OpenAIChatBot.InvokeChatBot(openAIEndpoint, openAIModelId);
+
+            //await BasicChatBot.InvokeChatBot(config["modelid"], config["endpoint"], config["apikey"]);
+            //await StreamingChatBot.InvokeChatBot(config["modelid"], config["endpoint"], config["apikey"]);
+            //await OpenAIChatBot.InvokeChatBot(config["OpenAI:apikey"], config["OpenAI:modelid"]);
+            //await GitHubOpenAIModels.InvokeChatBot(config["GitHub:apikey"],  config["GitHub:modelid"], config["GitHub:endpoint"]);
         }
     }
 }
