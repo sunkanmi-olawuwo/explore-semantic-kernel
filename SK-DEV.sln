@@ -3,14 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36511.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SK-Console", "src\SK-Console.csproj", "{7A772942-B679-4309-A31D-06AE6AE922CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SK-Console", "src\SK-Console\SK-Console.csproj", "{7A772942-B679-4309-A31D-06AE6AE922CF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SK-MultiModal-Console", "SK-MultiModal-Console\SK-MultiModal-Console.csproj", "{A07E4AB4-0EA2-4A11-98B6-0FBF8EF69AB1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SK-MultiModal-Console", "src\SK-MultiModal-Console\SK-MultiModal-Console.csproj", "{A07E4AB4-0EA2-4A11-98B6-0FBF8EF69AB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat", "src\SK-DevChat\Chat\Chat.csproj", "{BA829DAF-C0E8-4B1C-BF2E-BEEEA5AC6104}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKDevChat.AppHost", "src\SK-DevChat\SKDevChat.AppHost\SKDevChat.AppHost.csproj", "{AC76612B-4D08-4CAC-A1F6-34F41B7453A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKDevChat.ServiceDefaults", "src\SK-DevChat\SKDevChat.ServiceDefaults\SKDevChat.ServiceDefaults.csproj", "{52F16FD1-C47F-45EE-B1F2-5B9AAAC5A1DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.API", "src\SK-DevChat\Customer.API\Customer.API.csproj", "{7CD31B84-0614-7B7E-EAE2-3109E750F9B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleApps", "ConsoleApps", "{33637DC0-7529-49EA-8823-D46FEB485C93}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApps", "WebApps", "{F05B214A-69AF-48FA-B22A-BD98EDD498C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,9 +38,33 @@ Global
 		{A07E4AB4-0EA2-4A11-98B6-0FBF8EF69AB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A07E4AB4-0EA2-4A11-98B6-0FBF8EF69AB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A07E4AB4-0EA2-4A11-98B6-0FBF8EF69AB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA829DAF-C0E8-4B1C-BF2E-BEEEA5AC6104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA829DAF-C0E8-4B1C-BF2E-BEEEA5AC6104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA829DAF-C0E8-4B1C-BF2E-BEEEA5AC6104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA829DAF-C0E8-4B1C-BF2E-BEEEA5AC6104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC76612B-4D08-4CAC-A1F6-34F41B7453A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC76612B-4D08-4CAC-A1F6-34F41B7453A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC76612B-4D08-4CAC-A1F6-34F41B7453A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC76612B-4D08-4CAC-A1F6-34F41B7453A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52F16FD1-C47F-45EE-B1F2-5B9AAAC5A1DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52F16FD1-C47F-45EE-B1F2-5B9AAAC5A1DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52F16FD1-C47F-45EE-B1F2-5B9AAAC5A1DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52F16FD1-C47F-45EE-B1F2-5B9AAAC5A1DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CD31B84-0614-7B7E-EAE2-3109E750F9B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CD31B84-0614-7B7E-EAE2-3109E750F9B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CD31B84-0614-7B7E-EAE2-3109E750F9B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CD31B84-0614-7B7E-EAE2-3109E750F9B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7A772942-B679-4309-A31D-06AE6AE922CF} = {33637DC0-7529-49EA-8823-D46FEB485C93}
+		{A07E4AB4-0EA2-4A11-98B6-0FBF8EF69AB1} = {33637DC0-7529-49EA-8823-D46FEB485C93}
+		{BA829DAF-C0E8-4B1C-BF2E-BEEEA5AC6104} = {F05B214A-69AF-48FA-B22A-BD98EDD498C0}
+		{AC76612B-4D08-4CAC-A1F6-34F41B7453A1} = {F05B214A-69AF-48FA-B22A-BD98EDD498C0}
+		{52F16FD1-C47F-45EE-B1F2-5B9AAAC5A1DC} = {F05B214A-69AF-48FA-B22A-BD98EDD498C0}
+		{7CD31B84-0614-7B7E-EAE2-3109E750F9B2} = {F05B214A-69AF-48FA-B22A-BD98EDD498C0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF4BEECF-5EDA-45B9-A1B9-829F01D4845E}
