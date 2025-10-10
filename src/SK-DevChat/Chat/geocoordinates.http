@@ -1,6 +1,6 @@
 # For more info on HTTP files go to https://aka.ms/vs/httpfile
 
 @address=Dallas,TX
-@apikey=68e828b6cb807758119665mna543e00
+@apikey=
 
 GET  https://geocode.maps.co/search?q={{address}}&api_key={{apikey}}

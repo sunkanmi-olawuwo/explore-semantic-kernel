@@ -1,8 +1,8 @@
- // dotnet add package Microsoft.SemanticKernel
 using Chat.ModelBinders;
 using Chat.Plugins;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using ModelContextProtocol.Client;
 
 
 namespace Chat;
@@ -15,12 +15,16 @@ public class Program
         builder.AddServiceDefaults();
 
         //Add Model Binder for SK AuthorRole
-        builder.Services.AddControllersWithViews(options => {
+        builder.Services.AddControllersWithViews(options =>
+        {
             options.ModelBinderProviders.Insert(0, new AuthorRoleBinderProvider());
         }).AddRazorRuntimeCompilation();
 
         //Add Semantic Kernel
         var kernelBuilder = builder.Services.AddKernel();
+
+        //Add MCP Servers
+        await AddFileSystemMcpServer(kernelBuilder);
 
         kernelBuilder.Plugins.AddFromType<GetDateTime>();
         kernelBuilder.Plugins.AddFromType<GetWeather>();
@@ -47,7 +51,8 @@ public class Program
         FunctionChoiceBehaviorOptions options = new() { AllowConcurrentInvocation = true };
 
 
-        builder.Services.AddTransient<PromptExecutionSettings>( _ => new OpenAIPromptExecutionSettings {
+        builder.Services.AddTransient<PromptExecutionSettings>(_ => new OpenAIPromptExecutionSettings
+        {
             Temperature = 0.75,
             FunctionChoiceBehavior = FunctionChoiceBehavior.Auto(options: options)
         });
@@ -76,5 +81,20 @@ public class Program
             pattern: "{controller=Home}/{action=Index}");
 
         app.Run();
+    }
+
+    private static async Task AddFileSystemMcpServer(IKernelBuilder kernelBuilder)
+    {
+        //connect to MCP FileSystem server
+        IMcpClient mcpClient = await McpClientFactory.CreateAsync(new StdioClientTransport(new()
+        {
+            Name = "FileSystem",
+            Command = "npx",
+            Arguments = ["-y", "@modelcontextprotocol/server-filesystem", "C:\\Users\\sunka\\source\\repos\\explore-semantic-kernel\\src\\SK-DevChat\\Chat\\data\\"]
+        }));
+
+        // Get the list of tools from the MCP server and add them to the kernel
+        IList<McpClientTool> tools = await mcpClient.ListToolsAsync();
+        kernelBuilder.Plugins.AddFromFunctions("FS", tools.Select(skFunction => skFunction.AsKernelFunction()));
     }
 }
